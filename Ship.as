@@ -20,29 +20,34 @@
 		}
 
 		function onEnterFrame(event: Event): void {
-			if (isKeyDown(Keyboard.LEFT)) {
-				super.x = super.x - velocity;
+			super.x = calculatePosition(
+				super.x,
+				velocity * isKeyDown(Keyboard.RIGHT),
+				velocity * isKeyDown(Keyboard.LEFT),
+				ship_width / 2,
+				scene_width - ship_width / 2
+			);
+
+			super.y = calculatePosition(
+				super.y,
+				velocity * isKeyDown(Keyboard.DOWN),
+				velocity * isKeyDown(Keyboard.UP),
+				ship_height / 2,
+				scene_height - ship_height / 2
+			);
+		}
+
+		private function calculatePosition(currentPosition: int, toAdd: int, toSubtract: int, min: int, max: int): int {
+			var result = currentPosition + toAdd - toSubtract;
+
+			if (result > max) {
+				return max;
 			}
-			if (isKeyDown(Keyboard.UP)) {
-				super.y = super.y - velocity;
-			}
-			if (isKeyDown(Keyboard.RIGHT)) {
-				super.x = super.x + velocity;
-			}
-			if (isKeyDown(Keyboard.DOWN)) {
-				super.y = super.y + velocity;
+			if (result < min) {
+				return min;
 			}
 
-			if (super.x > scene_width - ship_width / 2) {
-				super.x = scene_width - ship_width / 2;
-			} else if (super.x < ship_width / 2) {
-				super.x = ship_width / 2;
-			}
-			if (super.y > scene_height - ship_height / 2) {
-				super.y = scene_height - ship_height / 2;
-			} else if (super.y < ship_height / 2) {
-				super.y = ship_height / 2;
-			}
+			return result;
 		}
 
 		private var hash: Object = {};
@@ -55,8 +60,8 @@
 			hash[event.keyCode] = 1;
 		}
 
-		private function isKeyDown(code: int): Boolean {
-			return hash[code] !== undefined;
+		private function isKeyDown(code: int): int {
+			return hash[code] == undefined ? 0 : 1;
 		}
 
 	}
