@@ -3,11 +3,15 @@
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
-	
+	import flash.events.Event;
+
 	public class Ship extends MovieClip {
 
-		var velocityX = 0;
-		var velocityY = 0;
+		const scene_width = 600;
+		const scene_height = 300;
+		const ship_width = 79;
+		const ship_height = 39;
+		const velocity = 10;
 
 		public function Ship() {
 			addEventListener('enterFrame', onEnterFrame);
@@ -15,37 +19,30 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
 		}
 
-		function onEnterFrame(event) {
-			var maxSpeed = 20;			
-			
+		function onEnterFrame(event: Event): void {
 			if (isKeyDown(Keyboard.LEFT)) {
-				velocityX--;
+				super.x = super.x - velocity;
 			}
 			if (isKeyDown(Keyboard.UP)) {
-				velocityY--;
+				super.y = super.y - velocity;
 			}
 			if (isKeyDown(Keyboard.RIGHT)) {
-				velocityX++;
+				super.x = super.x + velocity;
 			}
 			if (isKeyDown(Keyboard.DOWN)) {
-				velocityY++
+				super.y = super.y + velocity;
 			}
-			
-			if (velocityX > maxSpeed) {
-				velocityX = maxSpeed;
+
+			if (super.x > scene_width - ship_width / 2) {
+				super.x = scene_width - ship_width / 2;
+			} else if (super.x < ship_width / 2) {
+				super.x = ship_width / 2;
 			}
-			if (velocityX < -maxSpeed) {
-				velocityX = -maxSpeed;
+			if (super.y > scene_height - ship_height / 2) {
+				super.y = scene_height - ship_height / 2;
+			} else if (super.y < ship_height / 2) {
+				super.y = ship_height / 2;
 			}
-			if (velocityY > maxSpeed) {
-				velocityY = maxSpeed;
-			}
-			if (velocityY < -maxSpeed) {
-				velocityY = -maxSpeed;
-			}
-			
-			super.x = (600 + super.x + velocityX) % 600;
-			super.y = (300 + super.y + velocityY) % 300;
 		}
 
 		private var hash: Object = {};
@@ -61,6 +58,7 @@
 		private function isKeyDown(code: int): Boolean {
 			return hash[code] !== undefined;
 		}
+
 	}
 
 }
