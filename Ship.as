@@ -13,7 +13,7 @@
 		private static const ship_height = 39;
 		private static const velocity = 10;
 		private static const fireRateCooldown = 8;
-		
+
 		private var fireRateCount = 0;
 
 		public function Ship() {
@@ -78,18 +78,18 @@
 		}
 
 
-		private var hash: Object = {};
+		private var heldKeys: Object = {};
 
 		private function keyHandleUp(event: KeyboardEvent): void {
-			delete hash[event.keyCode];
+			delete heldKeys[event.keyCode];
 		}
 
 		private function keyHandleDown(event: KeyboardEvent): void {
-			hash[event.keyCode] = 1;
+			heldKeys[event.keyCode] = true;
 		}
 
 		private function isKeyDown(code: int): Boolean {
-			return hash[code] !== undefined;
+			return heldKeys[code];
 		}
 
 	}
