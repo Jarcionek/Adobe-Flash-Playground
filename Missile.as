@@ -10,7 +10,7 @@
 		public function Missile(x: int, y: int) {
 			this.x = x;
 			this.y = y;
-			this.addEventListener('enterFrame', onEnterFrame);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 
 		private function onEnterFrame(event: Event): void {

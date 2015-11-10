@@ -8,7 +8,7 @@
 		private static const speed: int = 1;
 
 		public function Background() {
-			this.addEventListener('enterFrame', onEnterFrame);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 
 		private function onEnterFrame(event: Event): void {

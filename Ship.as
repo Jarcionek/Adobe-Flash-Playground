@@ -16,7 +16,7 @@
 
 		public function Ship() {
 			this.main = this.parent as Main;
-			this.addEventListener('enterFrame', onEnterFrame);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 
 		private function onEnterFrame(event: Event): void {
@@ -36,7 +36,7 @@
 
 			if (main.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
 				var missile = new Missile(this.x + 50, this.y + 2);
-				this.parent.addChildAt(missile, this.parent.numChildren);
+				main.addChildAt(missile, main.numChildren);
 				fireRateCount = fireRateCooldown;
 			}
 			fireRateCount--;
