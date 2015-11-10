@@ -1,9 +1,9 @@
 ﻿package {
 
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
-	import flash.events.Event;
 
 	public class Ship extends MovieClip {
 
@@ -18,7 +18,7 @@
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyHandleUp);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
 		}
-		
+
 		function onEnterFrame(event: Event): void {
 			super.x = calculatePosition(
 				super.x,
@@ -47,24 +47,24 @@
 
 			return result;
 		}
-		
+
 
 		private function movingRightModifier(): int {
 			return isKeyDown(Keyboard.RIGHT) || isKeyDown(Keyboard.D) ? 1 : 0;
 		}
-		
+
 		private function movingLeftModifier(): int {
 			return isKeyDown(Keyboard.LEFT) || isKeyDown(Keyboard.A) ? -1 : 0
 		}
-		
+
 		private function movingUpModifier(): int {
 			return isKeyDown(Keyboard.DOWN) || isKeyDown(Keyboard.S) ? 1 : 0
 		}
-		
+
 		private function movingDownModifier(): int {
 			return isKeyDown(Keyboard.UP) || isKeyDown(Keyboard.W) ? -1 : 0
-		}		
-		
+		}
+
 
 		private var hash: Object = {};
 
