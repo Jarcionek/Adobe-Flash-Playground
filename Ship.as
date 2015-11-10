@@ -18,27 +18,25 @@
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyHandleUp);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
 		}
-
+		
 		function onEnterFrame(event: Event): void {
 			super.x = calculatePosition(
 				super.x,
-				velocity * isKeyDown(Keyboard.RIGHT),
-				velocity * isKeyDown(Keyboard.LEFT),
+				movingRightModifier() + movingLeftModifier(),
 				ship_width / 2,
 				scene_width - ship_width / 2
 			);
 
 			super.y = calculatePosition(
 				super.y,
-				velocity * isKeyDown(Keyboard.DOWN),
-				velocity * isKeyDown(Keyboard.UP),
+				movingDownModifier() + movingUpModifier(),
 				ship_height / 2,
 				scene_height - ship_height / 2
 			);
 		}
 
-		private function calculatePosition(currentPosition: int, toAdd: int, toSubtract: int, min: int, max: int): int {
-			var result = currentPosition + toAdd - toSubtract;
+		private function calculatePosition(currentPosition: int, velocityMultiplier: int, min: int, max: int): int {
+			var result = currentPosition + velocityMultiplier * velocity;
 
 			if (result > max) {
 				return max;
@@ -49,6 +47,24 @@
 
 			return result;
 		}
+		
+
+		private function movingRightModifier(): int {
+			return isKeyDown(Keyboard.RIGHT) || isKeyDown(Keyboard.D) ? 1 : 0;
+		}
+		
+		private function movingLeftModifier(): int {
+			return isKeyDown(Keyboard.LEFT) || isKeyDown(Keyboard.A) ? -1 : 0
+		}
+		
+		private function movingUpModifier(): int {
+			return isKeyDown(Keyboard.DOWN) || isKeyDown(Keyboard.S) ? 1 : 0
+		}
+		
+		private function movingDownModifier(): int {
+			return isKeyDown(Keyboard.UP) || isKeyDown(Keyboard.W) ? -1 : 0
+		}		
+		
 
 		private var hash: Object = {};
 
@@ -60,8 +76,8 @@
 			hash[event.keyCode] = 1;
 		}
 
-		private function isKeyDown(code: int): int {
-			return hash[code] == undefined ? 0 : 1;
+		private function isKeyDown(code: int): Boolean {
+			return hash[code] !== undefined;
 		}
 
 	}
