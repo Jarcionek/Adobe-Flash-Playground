@@ -12,7 +12,7 @@
 		function onEnterFrame(event: Event): void {
 			super.x = super.x - 1;
 			if (super.x < -2110) {
-				super.x = 0;
+				super.x = 2110;
 			}
 		}
 
