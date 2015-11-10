@@ -7,41 +7,36 @@
 
 	public class Ship extends MovieClip {
 
-		private static const scene_width = 600;
-		private static const scene_height = 300;
-		private static const ship_width = 79;
-		private static const ship_height = 39;
-		private static const velocity = 10;
-		private static const fireRateCooldown = 8;
+		private static const velocity: int = 10;
+		private static const fireRateCooldown: int = 8;
 
-		private var fireRateCount = 0;
+		private var fireRateCount: int = 0;
+		
+		private var main: Main;
 
 		public function Ship() {
-			addEventListener('enterFrame', onEnterFrame);
-			stage.addEventListener(KeyboardEvent.KEY_UP, keyHandleUp);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
+			this.main = this.parent as Main;
+			this.addEventListener('enterFrame', onEnterFrame);
 		}
 
-		function onEnterFrame(event: Event): void {
-			super.x = calculatePosition(
-				super.x,
+		private function onEnterFrame(event: Event): void {
+			this.x = calculatePosition(
+				this.x,
 				movingRightModifier() + movingLeftModifier(),
-				ship_width / 2,
-				scene_width - ship_width / 2
+				this.width / 2,
+				stage.stageWidth - this.width / 2
 			);
 
-			super.y = calculatePosition(
-				super.y,
+			this.y = calculatePosition(
+				this.y,
 				movingDownModifier() + movingUpModifier(),
-				ship_height / 2,
-				scene_height - ship_height / 2
+				this.height / 2,
+				stage.stageHeight - this.height / 2
 			);
 
-			if (isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
-				var missile = new Missile();
-				missile.x = super.x + 50;
-				missile.y = super.y + 2;
-				super.parent.addChildAt(missile, 2);
+			if (main.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
+				var missile = new Missile(this.x + 50, this.y + 2);
+				this.parent.addChildAt(missile, this.parent.numChildren);
 				fireRateCount = fireRateCooldown;
 			}
 			fireRateCount--;
@@ -62,34 +57,19 @@
 
 
 		private function movingRightModifier(): int {
-			return isKeyDown(Keyboard.RIGHT) || isKeyDown(Keyboard.D) ? 1 : 0;
+			return main.isKeyDown(Keyboard.RIGHT) || main.isKeyDown(Keyboard.D) ? 1 : 0;
 		}
 
 		private function movingLeftModifier(): int {
-			return isKeyDown(Keyboard.LEFT) || isKeyDown(Keyboard.A) ? -1 : 0
+			return main.isKeyDown(Keyboard.LEFT) || main.isKeyDown(Keyboard.A) ? -1 : 0
 		}
 
 		private function movingUpModifier(): int {
-			return isKeyDown(Keyboard.DOWN) || isKeyDown(Keyboard.S) ? 1 : 0
+			return main.isKeyDown(Keyboard.DOWN) || main.isKeyDown(Keyboard.S) ? 1 : 0
 		}
 
 		private function movingDownModifier(): int {
-			return isKeyDown(Keyboard.UP) || isKeyDown(Keyboard.W) ? -1 : 0
-		}
-
-
-		private var heldKeys: Object = {};
-
-		private function keyHandleUp(event: KeyboardEvent): void {
-			delete heldKeys[event.keyCode];
-		}
-
-		private function keyHandleDown(event: KeyboardEvent): void {
-			heldKeys[event.keyCode] = true;
-		}
-
-		private function isKeyDown(code: int): Boolean {
-			return heldKeys[code];
+			return main.isKeyDown(Keyboard.UP) || main.isKeyDown(Keyboard.W) ? -1 : 0
 		}
 
 	}

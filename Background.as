@@ -3,16 +3,18 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	public class Background extends MovieClip{
+	public class Background extends MovieClip {
+		
+		private static const speed: int = 1;
 
 		public function Background() {
-			addEventListener('enterFrame', onEnterFrame);
+			this.addEventListener('enterFrame', onEnterFrame);
 		}
 
-		function onEnterFrame(event: Event): void {
-			super.x = super.x - 1;
-			if (super.x < -2110) {
-				super.x = 2110;
+		private function onEnterFrame(event: Event): void {
+			this.x = this.x - speed;
+			if (this.x < -stage.width / 2) {
+				this.x = stage.width / 2;
 			}
 		}
 

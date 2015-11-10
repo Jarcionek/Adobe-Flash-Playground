@@ -5,17 +5,19 @@
 
 	public class Missile extends MovieClip {
 		
-		private static const speed = 20;
+		private static const speed: int = 20;
 
-		public function Missile() {
-			addEventListener('enterFrame', onEnterFrame);
+		public function Missile(x: int, y: int) {
+			this.x = x;
+			this.y = y;
+			this.addEventListener('enterFrame', onEnterFrame);
 		}
 
-		function onEnterFrame(event: Event): void {
-			super.x = super.x + speed;
-			if (super.x > 600) {
-				super.removeEventListener('enterFrame', onEnterFrame);
-				super.parent.removeChild(this);
+		private function onEnterFrame(event: Event): void {
+			this.x = this.x + speed;
+			if (this.x > stage.stageWidth) {
+				this.removeEventListener('enterFrame', onEnterFrame);
+				this.parent.removeChild(this);
 			}
 		}
 		
