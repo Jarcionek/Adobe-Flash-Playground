@@ -12,6 +12,9 @@
 		private static const ship_width = 79;
 		private static const ship_height = 39;
 		private static const velocity = 10;
+		private static const fireRateCooldown = 8;
+		
+		private var fireRateCount = 0;
 
 		public function Ship() {
 			addEventListener('enterFrame', onEnterFrame);
@@ -34,12 +37,14 @@
 				scene_height - ship_height / 2
 			);
 
-			if (isKeyDown(Keyboard.SPACE)) {
+			if (isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
 				var missile = new Missile();
-				missile.x = missile.x + 50;
-				missile.y = missile.y + 2;
-				super.addChildAt(missile, 0);
+				missile.x = super.x + 50;
+				missile.y = super.y + 2;
+				super.parent.addChildAt(missile, 2);
+				fireRateCount = fireRateCooldown;
 			}
+			fireRateCount--;
 		}
 
 		private function calculatePosition(currentPosition: int, velocityMultiplier: int, min: int, max: int): int {
