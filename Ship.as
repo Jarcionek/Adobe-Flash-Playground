@@ -7,11 +7,11 @@
 
 	public class Ship extends MovieClip {
 
-		const scene_width = 600;
-		const scene_height = 300;
-		const ship_width = 79;
-		const ship_height = 39;
-		const velocity = 10;
+		private static const scene_width = 600;
+		private static const scene_height = 300;
+		private static const ship_width = 79;
+		private static const ship_height = 39;
+		private static const velocity = 10;
 
 		public function Ship() {
 			addEventListener('enterFrame', onEnterFrame);
@@ -33,6 +33,13 @@
 				ship_height / 2,
 				scene_height - ship_height / 2
 			);
+
+			if (isKeyDown(Keyboard.SPACE)) {
+				var missile = new Missile();
+				missile.x = missile.x + 50;
+				missile.y = missile.y + 2;
+				super.addChildAt(missile, 0);
+			}
 		}
 
 		private function calculatePosition(currentPosition: int, velocityMultiplier: int, min: int, max: int): int {
