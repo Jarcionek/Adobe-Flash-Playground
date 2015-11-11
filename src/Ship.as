@@ -34,15 +34,15 @@ public class Ship extends MovieClip {
         );
 
         if (main.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
-            var missile = new Missile(this.x + 50, this.y + 2);
+            var missile: Missile = new Missile(this.x + 50, this.y + 2);
             main.addChildAt(missile, main.numChildren);
             fireRateCount = fireRateCooldown;
         }
         fireRateCount--;
     }
 
-    private function calculatePosition(currentPosition:int, velocityMultiplier:int, min:int, max:int):int {
-        var result = currentPosition + velocityMultiplier * velocity;
+    private static function calculatePosition(currentPosition:int, velocityMultiplier:int, min:int, max:int):int {
+        var result: int = currentPosition + velocityMultiplier * velocity;
 
         if (result > max) {
             return max;
