@@ -15,8 +15,8 @@ public class Background extends MovieClip {
 
     private function onEnterFrame(event:Event):void {
         this.x = this.x - speed;
-        if (this.x < -stage.width / 2) {
-            this.x = stage.width / 2;
+        if (this.x < -this.width) {
+            this.x = this.width;
         }
     }
 

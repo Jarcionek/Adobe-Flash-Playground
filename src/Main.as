@@ -10,16 +10,16 @@ public class Main extends MovieClip {
     public function Main() {
         var keyService:KeyService = new KeyService(stage);
 
-        this.addChildAt(new Background(0, 150), this.numChildren);
-        this.addChildAt(new Background(2110, 150), this.numChildren);
-        this.addChildAt(new Ship(stage.stageWidth / 2, stage.stageHeight / 2, keyService), this.numChildren);
+        stage.addChild(new Background(0, 150));
+        stage.addChild(new Background(2110, 150));
+        stage.addChild(new Ship(stage.stageWidth / 2, stage.stageHeight / 2, keyService));
 
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
     private function onEnterFrame(event:Event):void {
         if (int(Math.random() * 60) == 0) {
-            this.addChildAt(new EnemyShip(), this.numChildren);
+            stage.addChild(new EnemyShip());
         }
     }
 

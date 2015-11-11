@@ -36,8 +36,7 @@ public class Ship extends MovieClip {
         );
 
         if (keyService.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
-            var missile:Missile = new Missile(this.x + 50, this.y + 2);
-            stage.addChildAt(missile, stage.numChildren);
+            stage.addChild(new Missile(this.x + 50, this.y + 2));
             fireRateCount = fireRateCoolDown;
         }
         fireRateCount--;
