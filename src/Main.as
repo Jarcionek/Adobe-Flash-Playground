@@ -2,39 +2,25 @@
 
 import flash.display.MovieClip;
 import flash.events.Event;
-import flash.events.KeyboardEvent;
 
+//noinspection JSUnusedGlobalSymbols
 public class Main extends MovieClip {
 
+    //noinspection JSUnusedGlobalSymbols
     public function Main() {
-        stage.addEventListener(KeyboardEvent.KEY_UP, keyHandleUp);
-        stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
-        this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+        var keyService:KeyService = new KeyService(stage);
 
         this.addChildAt(new Background(0, 150), this.numChildren);
         this.addChildAt(new Background(2110, 150), this.numChildren);
-        this.addChildAt(new Ship(300, 150, this), this.numChildren);
+        this.addChildAt(new Ship(stage.stageWidth / 2, stage.stageHeight / 2, keyService), this.numChildren);
+
+        this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
     private function onEnterFrame(event:Event):void {
         if (int(Math.random() * 60) == 0) {
             this.addChildAt(new EnemyShip(), this.numChildren);
         }
-    }
-
-
-    private var heldKeys:Object = {};
-
-    private function keyHandleUp(event:KeyboardEvent):void {
-        delete heldKeys[event.keyCode];
-    }
-
-    private function keyHandleDown(event:KeyboardEvent):void {
-        heldKeys[event.keyCode] = true;
-    }
-
-    public function isKeyDown(code:int):Boolean {
-        return heldKeys[code];
     }
 
 }

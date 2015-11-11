@@ -7,16 +7,16 @@ import flash.ui.Keyboard;
 public class Ship extends MovieClip {
 
     private static const velocity:int = 10;
-    private static const fireRateCooldown:int = 8;
+    private static const fireRateCoolDown:int = 8;
 
     private var fireRateCount:int = 0;
 
-    private var main:Main;
+    private var keyService:KeyService;
 
-    public function Ship(x:int, y:int, main:Main) {
+    public function Ship(x:int, y:int, keyService:KeyService) {
         this.x = x;
         this.y = y;
-        this.main = main;
+        this.keyService = keyService;
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
@@ -35,10 +35,10 @@ public class Ship extends MovieClip {
                 stage.stageHeight - this.height / 2
         );
 
-        if (main.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
+        if (keyService.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
             var missile:Missile = new Missile(this.x + 50, this.y + 2);
-            main.addChildAt(missile, main.numChildren);
-            fireRateCount = fireRateCooldown;
+            stage.addChildAt(missile, stage.numChildren);
+            fireRateCount = fireRateCoolDown;
         }
         fireRateCount--;
     }
@@ -58,19 +58,19 @@ public class Ship extends MovieClip {
 
 
     private function movingRightModifier():int {
-        return main.isKeyDown(Keyboard.RIGHT) || main.isKeyDown(Keyboard.D) ? 1 : 0;
+        return keyService.isKeyDown(Keyboard.RIGHT) || keyService.isKeyDown(Keyboard.D) ? 1 : 0;
     }
 
     private function movingLeftModifier():int {
-        return main.isKeyDown(Keyboard.LEFT) || main.isKeyDown(Keyboard.A) ? -1 : 0
+        return keyService.isKeyDown(Keyboard.LEFT) || keyService.isKeyDown(Keyboard.A) ? -1 : 0
     }
 
     private function movingUpModifier():int {
-        return main.isKeyDown(Keyboard.DOWN) || main.isKeyDown(Keyboard.S) ? 1 : 0
+        return keyService.isKeyDown(Keyboard.DOWN) || keyService.isKeyDown(Keyboard.S) ? 1 : 0
     }
 
     private function movingDownModifier():int {
-        return main.isKeyDown(Keyboard.UP) || main.isKeyDown(Keyboard.W) ? -1 : 0
+        return keyService.isKeyDown(Keyboard.UP) || keyService.isKeyDown(Keyboard.W) ? -1 : 0
     }
 
 }
