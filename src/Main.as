@@ -10,6 +10,10 @@ public class Main extends MovieClip {
         stage.addEventListener(KeyboardEvent.KEY_UP, keyHandleUp);
         stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandleDown);
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+        this.addChildAt(new Background(0, 150), this.numChildren);
+        this.addChildAt(new Background(2110, 150), this.numChildren);
+        this.addChildAt(new Ship(300, 150, this), this.numChildren);
     }
 
     private function onEnterFrame(event:Event):void {

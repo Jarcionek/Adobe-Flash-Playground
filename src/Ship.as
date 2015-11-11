@@ -13,8 +13,10 @@ public class Ship extends MovieClip {
 
     private var main:Main;
 
-    public function Ship() {
-        this.main = this.parent as Main;
+    public function Ship(x:int, y:int, main:Main) {
+        this.x = x;
+        this.y = y;
+        this.main = main;
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
@@ -34,7 +36,7 @@ public class Ship extends MovieClip {
         );
 
         if (main.isKeyDown(Keyboard.SPACE) && fireRateCount <= 0) {
-            var missile: Missile = new Missile(this.x + 50, this.y + 2);
+            var missile:Missile = new Missile(this.x + 50, this.y + 2);
             main.addChildAt(missile, main.numChildren);
             fireRateCount = fireRateCooldown;
         }
@@ -42,7 +44,7 @@ public class Ship extends MovieClip {
     }
 
     private static function calculatePosition(currentPosition:int, velocityMultiplier:int, min:int, max:int):int {
-        var result: int = currentPosition + velocityMultiplier * velocity;
+        var result:int = currentPosition + velocityMultiplier * velocity;
 
         if (result > max) {
             return max;
