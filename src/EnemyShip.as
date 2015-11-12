@@ -29,7 +29,7 @@ public class EnemyShip extends MovieClip {
     }
 
     private function onEnterFrame(event:Event):void {
-        this.x = this.x - speed;
+        this.x -= speed;
 
         if (this.hitTestObject(playerShip)) {
             this.explode();

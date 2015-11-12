@@ -14,7 +14,7 @@ public class EnemyMissile extends Sprite {
     }
 
     private function onEnterFrame(event:Event):void {
-        this.x = this.x - speed;
+        this.x -= speed;
 
         if (this.x < -this.width) {
             this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
