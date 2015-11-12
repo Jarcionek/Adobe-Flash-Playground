@@ -14,8 +14,8 @@ public class Main extends MovieClip {
 
         playerShip = new PlayerShip(stage.stageWidth / 2, stage.stageHeight / 2, keyService);
 
-        stage.addChild(new Background(0, 150));
-        stage.addChild(new Background(2110, 150));
+        stage.addChild(new Background(2110 * 1 / 2, 300 / 2));
+        stage.addChild(new Background(2110 * 3 / 2, 300 / 2));
         stage.addChild(playerShip);
 
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);

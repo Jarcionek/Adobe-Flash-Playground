@@ -8,6 +8,7 @@ public class Background extends MovieClip {
     private static const speed:int = 1;
 
     public function Background(x: int, y: int) {
+        this.addChild(Assets.bitmap(new Assets.background));
         this.x = x;
         this.y = y;
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);

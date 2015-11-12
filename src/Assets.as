@@ -3,6 +3,9 @@ import flash.display.Bitmap;
 
 public class Assets {
 
+    [Embed(source="background.jpg")]
+    public static const background:Class;
+
     [Embed(source="enemyShip.png")]
     public static const enemyShipBitmap:Class;
 
