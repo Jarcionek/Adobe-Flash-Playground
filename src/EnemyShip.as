@@ -42,14 +42,14 @@ public class EnemyShip extends MovieClip {
         }
 
         if (int(Math.random() * 30) == 0) {
-            var missile:EnemyMissile = new EnemyMissile(this.x, this.y);
+            var missile:EnemyMissile = new EnemyMissile(this.x, this.y, playerShip);
             missile.x -= this.width / 2;
             stage.addChild(missile);
         }
     }
 
     public function explode(): void {
-        trace('explosion at ' + this.x + ',' + this.y);
+        trace('explosion at ' + this.x + ',' + this.y); //TODO
 
         this.removeFromStage();
     }
