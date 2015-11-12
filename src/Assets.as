@@ -15,6 +15,9 @@ public class Assets {
     [Embed(source="missile.png")]
     public static const missile:Class;
 
+    [Embed(source="enemyMissile.png")]
+    public static const enemyMissile:Class;
+
 
     public static function bitmap(bitmap:Bitmap):Bitmap {
         var result:Bitmap = bitmap as Bitmap;

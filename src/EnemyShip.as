@@ -33,8 +33,18 @@ public class EnemyShip extends MovieClip {
 
         if (this.hitTestObject(playerShip)) {
             this.explode();
-        } else if (this.x < -this.width) {
+            return;
+        }
+
+        if (this.x < -this.width) {
             this.removeFromStage();
+            return;
+        }
+
+        if (int(Math.random() * 30) == 0) {
+            var missile:EnemyMissile = new EnemyMissile(this.x, this.y);
+            missile.x -= this.width / 2;
+            stage.addChild(missile);
         }
     }
 
