@@ -16,10 +16,23 @@ public class Missile extends MovieClip {
 
     private function onEnterFrame(event:Event):void {
         this.x = this.x + speed;
+
         if (this.x > stage.stageWidth) {
-            this.removeEventListener('enterFrame', onEnterFrame);
-            this.parent.removeChild(this);
+            this.removeFromStage();
+            return;
         }
+
+        for (var i:int = 0; i < EnemyShip.ships.length; i++) {
+            if (EnemyShip.ships[i] !== null && this.hitTestObject(EnemyShip.ships[i])) {
+                EnemyShip.ships[i].explode();
+                this.removeFromStage();
+            }
+        }
+    }
+
+    private function removeFromStage():void {
+        this.removeEventListener('enterFrame', onEnterFrame);
+        this.parent.removeChild(this);
     }
 
 }
