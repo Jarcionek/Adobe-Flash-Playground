@@ -29,10 +29,10 @@ public class PlayerShip extends Sprite {
     }
 
     private function addBitmap(evt:Event):void {
-        var bitmap:Bitmap = new Bitmap((PlayerShip.loader.content as Bitmap).bitmapData);
+        var bitmap:Bitmap = new Bitmap((loader.content as Bitmap).bitmapData);
         bitmap.x = bitmap.x - bitmap.width / 2;
         bitmap.y = bitmap.y - bitmap.height / 2;
-        addChild(bitmap);
+        this.addChild(bitmap);
     }
 
     private function onEnterFrame(event:Event):void {

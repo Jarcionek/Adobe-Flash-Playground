@@ -1,5 +1,6 @@
 ﻿package {
 
+import flash.display.Bitmap;
 import flash.display.MovieClip;
 import flash.events.Event;
 
@@ -12,6 +13,11 @@ public class EnemyShip extends MovieClip {
         this.playerShip = ship;
         this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+        var bitmap:Bitmap = new Assets.enemyShipBitmap() as Bitmap;
+        bitmap.x = bitmap.x - bitmap.width / 2;
+        bitmap.y = bitmap.y - bitmap.height / 2;
+        this.addChild(bitmap);
     }
 
     private function onAddedToStage(e:Event):void {
