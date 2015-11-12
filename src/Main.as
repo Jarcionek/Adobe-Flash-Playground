@@ -6,24 +6,24 @@ import flash.events.Event;
 //noinspection JSUnusedGlobalSymbols
 public class Main extends MovieClip {
 
-    private var ship:Ship;
+    private var playerShip:PlayerShip;
 
     //noinspection JSUnusedGlobalSymbols
     public function Main() {
         var keyService:KeyService = new KeyService(stage);
 
-        this.ship = new Ship(stage.stageWidth / 2, stage.stageHeight / 2, keyService);
+        playerShip = new PlayerShip(stage.stageWidth / 2, stage.stageHeight / 2, keyService);
 
         stage.addChild(new Background(0, 150));
         stage.addChild(new Background(2110, 150));
-        stage.addChild(ship);
+        stage.addChild(playerShip);
 
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
     private function onEnterFrame(event:Event):void {
         if (int(Math.random() * 60) == 0) {
-            stage.addChild(new EnemyShip(this.ship));
+            stage.addChild(new EnemyShip(playerShip));
         }
     }
 

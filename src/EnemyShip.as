@@ -6,10 +6,10 @@ import flash.events.Event;
 public class EnemyShip extends MovieClip {
 
     private var speed:int;
-    private var ship:Ship;
+    private var playerShip:PlayerShip;
 
-    public function EnemyShip(ship:Ship) {
-        this.ship = ship;
+    public function EnemyShip(ship:PlayerShip) {
+        this.playerShip = ship;
         this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
@@ -23,7 +23,7 @@ public class EnemyShip extends MovieClip {
 
     private function onEnterFrame(event:Event):void {
         this.x = this.x - speed;
-        if (this.x < -this.width || this.hitTestObject(ship)) {
+        if (this.x < -this.width || this.hitTestObject(playerShip)) {
             this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
             this.parent.removeChild(this);
         }

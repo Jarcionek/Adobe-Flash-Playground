@@ -1,10 +1,15 @@
 ﻿package {
 
-import flash.display.MovieClip;
+import flash.display.Bitmap;
+import flash.display.Loader;
+import flash.display.Sprite;
 import flash.events.Event;
+import flash.net.URLRequest;
 import flash.ui.Keyboard;
 
-public class Ship extends MovieClip {
+public class PlayerShip extends Sprite {
+
+    private static const loader:Loader = new Loader();
 
     private static const velocity:int = 10;
     private static const fireRateCoolDown:int = 8;
@@ -13,11 +18,21 @@ public class Ship extends MovieClip {
 
     private var keyService:KeyService;
 
-    public function Ship(x:int, y:int, keyService:KeyService) {
+    public function PlayerShip(x:int, y:int, keyService:KeyService) {
         this.x = x;
         this.y = y;
         this.keyService = keyService;
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, addBitmap);
+        loader.load(new URLRequest('playerShip.png'));
+    }
+
+    private function addBitmap(evt:Event):void {
+        var bitmap:Bitmap = new Bitmap((PlayerShip.loader.content as Bitmap).bitmapData);
+        bitmap.x = bitmap.x - bitmap.width / 2;
+        bitmap.y = bitmap.y - bitmap.height / 2;
+        addChild(bitmap);
     }
 
     private function onEnterFrame(event:Event):void {
