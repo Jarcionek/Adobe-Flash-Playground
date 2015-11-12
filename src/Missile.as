@@ -8,6 +8,7 @@ public class Missile extends MovieClip {
     private static const speed:int = 20;
 
     public function Missile(x:int, y:int) {
+        this.addChild(Assets.bitmap(new Assets.missile));
         this.x = x;
         this.y = y;
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
