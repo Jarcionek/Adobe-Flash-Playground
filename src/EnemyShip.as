@@ -41,7 +41,7 @@ public class EnemyShip extends MovieClip {
             return;
         }
 
-        if (int(Math.random() * 30) == 0) {
+        if (int(Math.random() * 30) == 0 && playerShip.x + playerShip.width / 2 < this.x - this.width / 2) {
             var missile:EnemyMissile = new EnemyMissile(this.x, this.y, playerShip);
             missile.x -= this.width / 2;
             stage.addChild(missile);

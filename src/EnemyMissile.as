@@ -8,6 +8,9 @@ public class EnemyMissile extends Sprite {
 
     private var playerShip:PlayerShip;
 
+    private var speedX:int;
+    private var speedY:int;
+
     public function EnemyMissile(x:int, y:int, playerShip:PlayerShip) {
         this.addChild(Assets.bitmap(new Assets.enemyMissile));
         this.x = x;
@@ -16,15 +19,26 @@ public class EnemyMissile extends Sprite {
         this.playerShip = playerShip;
 
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+        var xDiff:int = playerShip.x - this.x;
+        var yDiff:int = playerShip.y - this.y;
+        var dist:Number = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+
+        speedX = speed * xDiff / dist;
+        speedY = speed * yDiff / dist;
     }
 
     private function onEnterFrame(event:Event):void {
-        this.x -= speed;
+        this.x += speedX;
+        this.y += speedY;
 
         if (this.hitTestObject(playerShip)) {
             trace('player ship hit'); //TODO
             removeFromStage();
-        } else if (this.x < -this.width) {
+        } else if (this.x < -this.width
+                || this.x > stage.stageWidth + this.width
+                || this.y < -this.height
+                || this.y > stage.stageHeight + this.height) {
             removeFromStage();
         }
     }
